@@ -3,12 +3,20 @@
 
 
 import { Routes, Route, } from "react-router-dom"
+import { lazy } from "react";
+
 
 import AuthLayout from "./layout/AuthLayout";
-import Layout from "./layout/Layout";
+
+
+const Layout = lazy(() => import("./layout/Layout"));
+const Login = lazy(() => import("../src/pages/login/Login"));
+const SignUp = lazy(() => import("../src/pages/signup/SignUp"));
+
+
 import Home from "./pages/home/Home";
 
- 
+
 
 
 
@@ -22,6 +30,9 @@ export default function App() {
       <Routes>
 
         <Route path="/" element={<AuthLayout />}>
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
 
           <Route path="/" element={<Layout />}>
 

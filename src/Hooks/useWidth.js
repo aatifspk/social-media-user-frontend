@@ -4,7 +4,7 @@ export default function useWidth() {
   // breakpoints
   const breakpoints = {
     sm: "640",
-    md: "768",
+    md: "720",
     lg: "1024",
     xl: "1280",
   };
