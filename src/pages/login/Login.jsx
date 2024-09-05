@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import images from '../../constant/images';
 import logoWhite from "../../assets/logo/instgram_logo_white.png"
 
@@ -6,11 +6,98 @@ import logoWhite from "../../assets/logo/instgram_logo_white.png"
 import useWidth from '../../Hooks/useWidth';
 import { Link, NavLink } from 'react-router-dom';
 import useDarkmode from '../../Hooks/useDarkMode';
+import authSrvice from '../../services/authSrvice';
 
 const Login = () => {
 
     const { width, breakpoints } = useWidth();
-    const [isDark] = useDarkmode()
+    const [isDark] = useDarkmode();
+
+    const [formData, setFormData] = useState({
+        email: '',
+        firstName: '',
+        lastName: '',
+        password: '',
+    });
+
+    const [formDataError, setFormDataError] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleValidation = (name, value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const errors = {};
+
+        switch (name) {
+            case 'email':
+                if (!value) {
+                    errors.email = 'Email is required.';
+                } else if (!emailRegex.test(value)) {
+                    errors.email = 'Enter a valid email.';
+                } else {
+                    errors.email = '';
+                }
+                break;
+            case 'password':
+                if (!value) {
+                    errors.password = 'Password is required.';
+                } else {
+                    errors.password = '';
+
+                }
+                break;
+            default:
+                break;
+        }
+        return errors;
+    };
+
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        // Validate input field
+        const error = handleValidation(name, value);
+        setFormDataError((prev) => ({ ...prev, ...error }));
+
+        // Update form data
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+
+    const validateFormData = () => {
+        const errors = {};
+        let hasError = false;
+
+        Object.keys(formData).forEach((key) => {
+            const error = handleValidation(key, formData[key]);
+            if (Object.keys(error).length > 0) {
+                hasError = true;
+                Object.assign(errors, error);
+            }
+        });
+
+        setFormDataError(errors);
+        return hasError;
+    };
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        if (validateFormData()) {
+            setIsSubmitting(false);
+            return;
+        }
+
+        try {
+            //   await authSrvice.signUp(formData);
+            // Notify success, redirect, or clear form after successful signup
+        } catch (error) {
+            console.error('Signup error:', error);
+            // Show user-friendly error messages
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
 
 
 
@@ -24,7 +111,7 @@ const Login = () => {
                             <div className=' h-full flex items-center justify-center relative'>
                                 <div className='relative'>
                                     <img
-                                        src={ images?.loginImage2}
+                                        src={images?.loginImage2}
                                         alt="loginImg2"
                                         className='relative z-10 w-[80%] sm:w-[60%] md:w-[90%] lg:w-[90%]'
                                     />
@@ -44,19 +131,31 @@ const Login = () => {
                                 </div>
 
                                 <div className='w-[90%]   rounded-lg flex justify-center items-center mx-auto'>
-                                <div className='w-[100%] space-y-4'>
-                                        <input
-                                            type="text"
-                                            placeholder='Email'
-                                            className={`w-[100%] ${isDark ? "bg-mediumDark text-light" : "border-2 text-dark"}  p-2  rounded focus:outline-none focus:ring-2 focus:ring-cyan-100`}
-                                        />
-                                        <input
-                                            type="password"
-                                            placeholder='Password'
-                                            className={`w-[100%] ${isDark ? "bg-mediumDark" : "border-2"}  p-2  rounded focus:outline-none focus:ring-2 focus:ring-cyan-100`}
+                                    <div className='w-[100%] space-y-4'>
+                                        <div>
+                                            <input
+                                                name='email'
+                                                type="text"
+                                                placeholder='Email'
+                                                onChange={handleChange}
 
-                                        />
-                                        <button className='bg-cyan-500 text-white w-[100%] py-2 rounded hover:bg-cyan-600 transition duration-200'>
+                                                className={`w-[100%] ${isDark ? "bg-mediumDark text-light" : "border-2 text-dark"}  p-2  rounded focus:outline-none focus:ring-2 focus:ring-cyan-100`}
+                                            />
+                                            <span className='text-deep-orange-400 text-sm mt-4 pb-0 mb-0'>{formDataError?.email}</span>
+                                        </div>
+
+                                        <div>
+                                            <input
+                                                name='password'
+                                                type="password"
+                                                placeholder='Password'
+                                                className={`w-[100%] ${isDark ? "bg-mediumDark" : "border-2"}  p-2  rounded focus:outline-none focus:ring-2 focus:ring-cyan-100`}
+                                                onChange={handleChange}
+                                            />
+                                            <span className='text-deep-orange-400 text-sm mt-4 pb-0 mb-0'>{formDataError?.password}</span>
+                                        </div>
+
+                                        <button onClick={handleSubmit} className='bg-cyan-500 text-white w-[100%] py-2 rounded hover:bg-cyan-600 transition duration-200'>
                                             Log in
                                         </button>
                                     </div>

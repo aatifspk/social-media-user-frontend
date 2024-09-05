@@ -6,7 +6,6 @@ const useDarkmode = () => {
   const dispatch = useDispatch();
   const isDark = useSelector((state) => state.layout.darkMode);
 
-  console.log("isDark hhh",isDark);
   
 
   // ** Return a wrapped version of useState's setter function
