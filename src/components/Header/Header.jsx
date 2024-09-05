@@ -4,14 +4,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FaInstagram } from 'react-icons/fa';
 import logo from "../../assets/logo/Instagram_logo.svg.png"
+import logoWhite from "../../assets/logo/instgram_logo_white.png"
+
 import useWidth from '../../Hooks/useWidth';
 import { GoHeart } from "react-icons/go";
 import { FiSearch } from "react-icons/fi";
+import useDarkmode from '../../Hooks/useDarkMode';
 
 
 
 
 const Header = () => {
+
+    const [isDark] = useDarkmode()
+
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -35,7 +41,7 @@ const Header = () => {
     }, []);
 
     return (
-        <div className='w-full bg-white h-14 sticky top-[-1px] flex justify-between  px-4 z-[999]'>
+        <div className={`w-full h-14 sticky top-[-1px] flex justify-between  px-4 z-[999] border-b-[0.5px]  ${isDark ? "bg-dark border-blue-gray-800" : "bg-white border-slate-400"}`}>
             <div className='flex w-[100%] flex-row items-center justify-between'>
                 <div className='w-[20%] '>
                     <div className="relative w-[100%]  text-left" ref={dropdownRef}>
@@ -50,7 +56,7 @@ const Header = () => {
                             >
                                 {
 
-                                    <img className='md:w-35 md:h-10' src={logo} alt="" />
+                                    <img className='md:w-35 md:h-10' src={isDark ? logoWhite : logo} alt="" />
 
                                 }
                                 <svg
@@ -69,7 +75,7 @@ const Header = () => {
                         </div>
 
                         <div
-                            className={`absolute  z-10 mt-2 w-[120%] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transform transition ease-in-out duration-200 ${isDropdownOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+                            className={`absolute  z-10 mt-2 w-[120%] origin-top-right rounded-md ${isDark ? "bg-dark text-light" : "bg-light"} shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transform transition ease-in-out duration-200 ${isDropdownOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
                             role="menu"
                             aria-orientation="vertical"
                             aria-labelledby="menu-button"
@@ -77,7 +83,7 @@ const Header = () => {
                             <div className="py-1" role="none">
                                 <a
                                     href="#"
-                                    className="block px-4 py-2 text-sm text-gray-700"
+                                    className="block px-4 py-2 text-sm "
                                     role="menuitem"
                                     id="menu-item-0"
                                 >
@@ -85,7 +91,7 @@ const Header = () => {
                                 </a>
                                 <a
                                     href="#"
-                                    className="block px-4 py-2 text-sm text-gray-700"
+                                    className="block px-4 py-2 text-sm "
                                     role="menuitem"
                                     id="menu-item-1"
                                 >
@@ -102,10 +108,10 @@ const Header = () => {
 
 
                         {/* search */}
-                        <div className='w-[80%] h-[100%]   overflow-hidden'>
+                        <div className='w-[80%] h-[100%] overflow-hidden'>
 
                             <div
-                                className="inline-flex relative  rounded-md bg-slate-200 h-[100%] w-[100%]  gap-x-10 px-10 py-2 text-sm font-semibold text-gray-900 shadow-sm "
+                                className={`inline-flex relative  rounded-lg ${isDark ? "bg-mediumDark text-light" : "bg-gray-600 text-dark" } h-[100%] w-[100%]  gap-x-10 px-10 py-2 text-sm font-semibold  shadow-sm `}
                                 id="menu-button"
                                 aria-haspopup="true"
                             >

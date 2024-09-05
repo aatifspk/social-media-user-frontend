@@ -26,7 +26,7 @@ const Layout = () => {
 
             {/* header */}
             {
-              width < breakpoints.sm ? <Header /> : ""
+              width <= breakpoints.sm ? <Header /> : ""
             }
 
 

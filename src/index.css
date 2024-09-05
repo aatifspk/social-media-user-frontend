@@ -24,7 +24,3 @@ body {
     transition: background-color 0.5s ease;
   }
 
-
-.nav-item:hover {
-    background-color: #e4e6e9 !important; /* equivalent to bg-slate-200 in Tailwind */
-  }

@@ -68,7 +68,7 @@ const Home = () => {
     <div className='scroll-container w-[100%] flex ' style={{height:"100vh", overflowY: "auto"}} >
       <div className={`${width > breakpoints.xl ? "w-[60%]" : "w-[100%]"}`}>
         <TopStory />
-        <div className='flex flex-col items-center py-2 justify-center'>
+        <div className='flex flex-col items-center  py-2 justify-center'>
           <div className={`${width < breakpoints.sm ? "w-[100%]" : "w-[60%]"} flex flex-col justify-center gap-3 items-center`}>
             {postsArr.length > 0 ? postsArr.map((item, index) => (
               <HomeCard key={index} item={item} />

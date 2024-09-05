@@ -6,8 +6,19 @@ const withMT = require("@material-tailwind/react/utils/withMT");
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+
+      colors: {
+        primary: "#ffc001",
+        secondary: "#ff9c01",
+        dark: "#080809",
+        light: "#f8f9fb",
+        mediumDark : "rgb(57 57 57)"
+      },
+
+    },
   },
   plugins: [],
 })

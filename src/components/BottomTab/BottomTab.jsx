@@ -16,6 +16,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 import Icons from '../SideBar/Icons';
 import useWidth from '../../Hooks/useWidth';
+import useDarkmode from '../../Hooks/useDarkMode';
 
 
 
@@ -58,10 +59,15 @@ const menuItems = [
 ];
 
 const BottomTab = () => {
-    return (
-        <div className='w-[100%]  h-14 sticky bottom-0'>
 
-            <ul className="pb-10 pt-2  bg-white flex justify-around ">
+    const [isDark] = useDarkmode()
+
+
+
+    return (
+        <div className={`w-[100%]  h-14 sticky bottom-0 border-t-2  ${isDark ? "bg-dark border-blue-gray-800" : "bg-white border-slate-400"}`}>
+
+            <ul className="pb-10 pt-2 flex justify-around ">
                 {menuItems.map((item, i) => (
                     <li
                         key={i}

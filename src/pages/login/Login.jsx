@@ -1,12 +1,16 @@
 import React from 'react';
 import images from '../../constant/images';
+import logoWhite from "../../assets/logo/instgram_logo_white.png"
+
 
 import useWidth from '../../Hooks/useWidth';
 import { Link, NavLink } from 'react-router-dom';
+import useDarkmode from '../../Hooks/useDarkMode';
 
 const Login = () => {
 
-    const { width, breakpoints } = useWidth()
+    const { width, breakpoints } = useWidth();
+    const [isDark] = useDarkmode()
 
 
 
@@ -20,7 +24,7 @@ const Login = () => {
                             <div className=' h-full flex items-center justify-center relative'>
                                 <div className='relative'>
                                     <img
-                                        src={images?.loginImage2}
+                                        src={ images?.loginImage2}
                                         alt="loginImg2"
                                         className='relative z-10 w-[80%] sm:w-[60%] md:w-[90%] lg:w-[90%]'
                                     />
@@ -36,20 +40,21 @@ const Login = () => {
 
                             <div className='sm:border-2  border-gray-300 rounded-sm p-6  max-w-md mx-auto'>
                                 <div className='flex justify-center py-6'>
-                                    <img src={images?.instaLogo} alt="Instagram Logo" className='w-36' />
+                                    <img src={isDark ? logoWhite : images?.instaLogo} alt="Instagram Logo" className='w-36' />
                                 </div>
 
                                 <div className='w-[90%]   rounded-lg flex justify-center items-center mx-auto'>
-                                    <div className='w-[100%] space-y-4'>
+                                <div className='w-[100%] space-y-4'>
                                         <input
                                             type="text"
                                             placeholder='Email'
-                                            className=' w-[100%] p-2 border-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-100'
+                                            className={`w-[100%] ${isDark ? "bg-mediumDark text-light" : "border-2 text-dark"}  p-2  rounded focus:outline-none focus:ring-2 focus:ring-cyan-100`}
                                         />
                                         <input
                                             type="password"
                                             placeholder='Password'
-                                            className=' w-[100%] p-2 border-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-100'
+                                            className={`w-[100%] ${isDark ? "bg-mediumDark" : "border-2"}  p-2  rounded focus:outline-none focus:ring-2 focus:ring-cyan-100`}
+
                                         />
                                         <button className='bg-cyan-500 text-white w-[100%] py-2 rounded hover:bg-cyan-600 transition duration-200'>
                                             Log in
