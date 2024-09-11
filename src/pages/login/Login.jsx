@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import images from '../../constant/images';
 import logoWhite from "../../assets/logo/instgram_logo_white.png"
 
@@ -7,6 +7,19 @@ import useWidth from '../../Hooks/useWidth';
 import { Link, NavLink } from 'react-router-dom';
 import useDarkmode from '../../Hooks/useDarkMode';
 import authSrvice from '../../services/authSrvice';
+
+
+const SignUpLink = memo(() => {
+    return (
+        <div className='w-[100%]'>
+            <div className='sm:border-2 border-gray-300 rounded-sm p-6 max-w-md mx-auto'>
+                <div className='rounded-lg flex'>
+                    <h2 className='text-base'>Don't have an account? <Link to={"/signup"} className='text-blue-500 font-bold'>Sign up</Link></h2>
+                </div>
+            </div>
+        </div>
+    );
+});
 
 const Login = () => {
 
@@ -162,23 +175,7 @@ const Login = () => {
                                 </div>
                             </div>
                         </div>
-
-
-                        <div className='w-[100%] '>
-
-                            <div className='sm:border-2 border-gray-300 rounded-sm p-6  max-w-md mx-auto'>
-                                <div className='  rounded-lg flex   '>
-                                    <h2 className='text-base'>Don't have an account?  <Link to={"/signup"} className='text-blue-500 font-bold'>Sign up</Link></h2>
-
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-
-
+                        <SignUpLink/>
                     </div>
                 </div>
             </div>
